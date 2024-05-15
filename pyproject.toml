@@ -5,6 +5,20 @@ description = "Make your python CLI prints and logs simple but glamorous"
 authors = ["snaeil <schnegel@posteo.de>"]
 license = "MIT"
 readme = "README.md"
+homepage = "https://github.com/snaeil/glampy"
+repository = "https://github.com/snaeil/glampy"
+keywords = ["cli", "logging", "styling", "terminal"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: MacOS",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Typing :: Typed",
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -23,3 +37,6 @@ commitizen = "^3.25.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/snaeil/glampy/issues"
