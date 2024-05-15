@@ -5,7 +5,28 @@ import logging
 import os
 
 from sys import stdout
-from . import style
+from .style import Foreground_Colour, Style
+
+
+class Formatter(logging.Formatter):
+    """An opinionated formatter for logging messages."""
+
+    def format(self, record: logging.LogRecord):
+        """Formats the log record with colours based on the log level.
+
+        Args:
+            record: The log record to format.
+        """
+        color = {
+            logging.WARNING: Foreground_Colour.YELLOW,
+            logging.ERROR: Foreground_Colour.RED,
+            logging.FATAL: Foreground_Colour.RED,
+            logging.INFO: Foreground_Colour.GREEN,
+            logging.DEBUG: Foreground_Colour.CYAN,
+        }.get(record.levelno, 0)
+        # pylint: disable=protected-access
+        self._style._fmt = f"{color}%(levelname)s{Style.RESET_ALL}: %(message)s"
+        return super().format(record)
 
 
 class Logger:
@@ -20,7 +41,7 @@ class Logger:
         log_name: str,
         log_file: None | str = None,
         log_level: int = logging.CRITICAL,
-        log_format: str = "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        log_format: str | logging.Formatter | None = None,
     ):
         """Initializes the logger.
 
@@ -40,7 +61,13 @@ class Logger:
         self.logger.setLevel(log_level)
         console_handler = logging.StreamHandler(stdout)
 
-        console_handler.setFormatter(logging.Formatter(log_format))
+        if isinstance(log_format, logging.Formatter):
+            formatter = log_format
+        elif isinstance(log_format, str):
+            formatter = logging.Formatter(log_format)
+        else:
+            formatter = Formatter()
+        console_handler.setFormatter(formatter)
         self.logger.addHandler(console_handler)
 
         if log_file:
@@ -48,7 +75,7 @@ class Logger:
             if not os.path.exists(log_dir) and len(log_dir.strip()) > 0:
                 os.makedirs(log_dir, exist_ok=True)
             file_handler = logging.FileHandler(log_file, mode="w")
-            file_handler.setFormatter(logging.Formatter(log_format))
+            file_handler.setFormatter(formatter)
             self.logger.addHandler(file_handler)
 
     def _log(self, msg: str, level: str) -> None:
@@ -63,9 +90,9 @@ class Logger:
         if level == "debug":
             self.logger.debug(msg)
         if level == "warning":
-            self.logger.warning("%s%s", style.Color.WARNING, msg)
+            self.logger.warning(msg)
         if level == "error":
-            self.logger.error("%s%s", style.Color.ERROR, msg)
+            self.logger.error(msg)
 
     def debug(self, msg: str) -> None:
         """Logs a debug message.

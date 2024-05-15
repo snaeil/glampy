@@ -4,7 +4,7 @@ import os
 import shutil
 from unittest import TestCase
 from unittest.mock import MagicMock
-from glampy.logger import Logger
+from glampy.logging import Logger
 
 
 class TestLogger(TestCase):
