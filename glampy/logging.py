@@ -25,7 +25,9 @@ class Formatter(logging.Formatter):
             logging.DEBUG: Foreground_Colour.CYAN,
         }.get(record.levelno, 0)
         # pylint: disable=protected-access
-        self._style._fmt = f"{color}%(levelname)s{Style.RESET_ALL}: %(message)s"
+        self._style._fmt = (
+            f"[%(asctime)s] [{color}%(levelname)7s{Style.RESET_ALL}] ::: %(message)s"
+        )
         return super().format(record)
 
 
