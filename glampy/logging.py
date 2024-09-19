@@ -1,10 +1,11 @@
 """This module contains logger related utilities."""
 
 from __future__ import annotations
+
 import logging
 import os
-
 from sys import stdout
+
 from .style import Foreground_Colour, Style
 
 
@@ -41,6 +42,7 @@ class Logger:
     def __init__(
         self,
         log_name: str,
+        console_handler=logging.StreamHandler(stdout),
         log_file: None | str = None,
         log_level: int = logging.CRITICAL,
         log_format: str | logging.Formatter | None = None,
@@ -61,7 +63,6 @@ class Logger:
         """
         self.logger = logging.getLogger(log_name)
         self.logger.setLevel(log_level)
-        console_handler = logging.StreamHandler(stdout)
 
         if isinstance(log_format, logging.Formatter):
             formatter = log_format
@@ -69,8 +70,9 @@ class Logger:
             formatter = logging.Formatter(log_format)
         else:
             formatter = Formatter()
-        console_handler.setFormatter(formatter)
-        self.logger.addHandler(console_handler)
+        if console_handler:
+            console_handler.setFormatter(formatter)
+            self.logger.addHandler(console_handler)
 
         if log_file:
             log_dir = os.path.dirname(log_file)
