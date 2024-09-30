@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 import os
 from sys import stdout
+from typing import Any
 
 from .style import Foreground_Colour, Style
 
@@ -42,7 +43,7 @@ class Logger:
     def __init__(
         self,
         log_name: str,
-        console_handler=logging.StreamHandler(stdout),
+        console_handler: Any = logging.StreamHandler(stdout),
         log_file: None | str = None,
         log_level: int = logging.CRITICAL,
         log_format: str | logging.Formatter | None = None,
@@ -51,6 +52,7 @@ class Logger:
 
         Args:
             log_name: A name for the logger, allowing differentiating between logs.
+            console_handler: The handler to use for logging to stdout.
             log_file: The path to the log file.
             log_level: The level threshold of the logs to be displayed.
             log_format: The format of the logs.
@@ -60,6 +62,9 @@ class Logger:
 
         Example using the Logger class to log to stdout only:
         >>> logger = Logger("my_logger", log_level=logging.DEBUG)
+
+        Example using the Logger class to log to a file only:
+        >>> logger = Logger("my_logger", console_handler=None, log_level=logging.DEBUG)
         """
         self.logger = logging.getLogger(log_name)
         self.logger.setLevel(log_level)

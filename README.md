@@ -30,6 +30,10 @@ from glampy.logging import Logger
 logger = Logger("my_logger", log_file="my_log.log", log_level=logging.DEBUG)
 logger.debug("This is a debug message that will be logged to stdout and the file.")
 
+# Example using the Logger class to log to a file only:
+logger = Logger("my_logger", console_handler=None, log_level=logging.DEBUG)
+logger.debug("This is a debug message that will be logged to a file only.")
+
 # Example using the Logger class to log to stdout only:
 logger = Logger("my_logger", log_level=logging.WARNING)
 logger.warning("This is a warning message that will be logged to stdout only.")
