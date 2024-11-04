@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "glampy"
-version = "0.2.7"
+version = "0.2.8"
 description = "Make your python CLI prints and logs simple but glamorous"
 authors = ["snaeil <schnegel@posteo.de>"]
 license = "MIT"

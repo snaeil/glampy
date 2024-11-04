@@ -5,7 +5,6 @@ from __future__ import annotations
 import logging
 import os
 from sys import stdout
-from typing import Any
 
 from .style import Foreground_Colour, Style
 
@@ -43,7 +42,7 @@ class Logger:
     def __init__(
         self,
         log_name: str,
-        console_handler: Any = logging.StreamHandler(stdout),
+        console_handler: None | logging.StreamHandler = logging.StreamHandler(stdout),
         log_file: None | str = None,
         log_level: int = logging.CRITICAL,
         log_format: str | logging.Formatter | None = None,
@@ -58,13 +57,17 @@ class Logger:
             log_format: The format of the logs.
 
         Example using the Logger class to log to stdout and a file:
-        >>> logger = Logger("my_logger", log_file="my_log.log", log_level=logging.DEBUG)
+        >>> logger = Logger(log_name="my_logger", log_file="my_log.log", log_level=logging.DEBUG)
 
         Example using the Logger class to log to stdout only:
-        >>> logger = Logger("my_logger", log_level=logging.DEBUG)
+        >>> logger = Logger(log_name="my_logger", log_level=logging.DEBUG)
 
         Example using the Logger class to log to a file only:
-        >>> logger = Logger("my_logger", console_handler=None, log_level=logging.DEBUG)
+        >>> logger = Logger(log_name="my_logger", console_handler=None, log_level=logging.DEBUG)
+
+        Example using the Logger class to log to a file only with a custom log format:
+        >>> log_format = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+        >>> logger = Logger(log_name="my_logger", console_handler=None, log_level=logging.DEBUG, log_format=log_format)
         """
         self.logger = logging.getLogger(log_name)
         self.logger.setLevel(log_level)
