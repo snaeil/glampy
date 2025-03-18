@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "glampy"
-version = "0.2.11"
+version = "0.2.12"
 description = "Make your python CLI prints and logs simple but glamorous"
 authors = ["snaeil <schnegel@posteo.de>"]
 license = "MIT"
@@ -22,7 +22,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4"
@@ -31,8 +31,6 @@ mypy = "^1.10"
 pdoc = "^14.5"
 bandit = "^1.7"
 pylint = "^3.1"
-pre-commit = "^3.7"
-commitizen = "^3.25"
 
 
 [build-system]
