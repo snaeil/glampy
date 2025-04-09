@@ -4,9 +4,20 @@ from __future__ import annotations
 
 import logging
 import os
+from enum import Enum
 from sys import stdout
 
 from .style import Foreground_Colour, Style
+
+
+class LogLevel(Enum):
+    """Enum for log levels."""
+
+    DEBUG = logging.DEBUG
+    INFO = logging.INFO
+    WARNING = logging.WARNING
+    ERROR = logging.ERROR
+    CRITICAL = logging.CRITICAL
 
 
 class Formatter(logging.Formatter):
