@@ -38,7 +38,8 @@ class Formatter(logging.Formatter):
         }.get(record.levelno, 0)
         # pylint: disable=protected-access
         self._style._fmt = (
-            f"[%(asctime)s] [{color}%(levelname)7s{Style.RESET_ALL}] ::: %(message)s"
+            f"[%(asctime)s] [{color}%(levelname)7s{Style.RESET_ALL}]"
+            " [{Foreground_Colour.MAGENTA}%(name){Style.RESET_ALL}] %(message)s"
         )
         return super().format(record)
 
