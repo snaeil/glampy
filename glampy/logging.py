@@ -29,7 +29,7 @@ class Formatter(logging.Formatter):
         Args:
             record: The log record to format.
         """
-        color = {
+        level_color = {
             logging.WARNING: Foreground_Colour.YELLOW,
             logging.ERROR: Foreground_Colour.RED,
             logging.FATAL: Foreground_Colour.RED,
@@ -37,7 +37,13 @@ class Formatter(logging.Formatter):
             logging.DEBUG: Foreground_Colour.CYAN,
         }.get(record.levelno, 0)
         # pylint: disable=protected-access
-        self._style._fmt = f"[%(asctime)s] [{color}%(levelname)7s{Style.RESET_ALL}] [{Foreground_Colour.MAGENTA}%(name){Style.RESET_ALL}] %(message)s"
+        self._style._fmt = (
+            f"{Foreground_Colour.BLUE}%(asctime)s{Style.RESET_ALL} "
+            f"{Foreground_Colour.BRIGHT_BLACK}:{Style.RESET_ALL} {level_color}%(levelname)7s{Style.RESET_ALL} "
+            f"{Foreground_Colour.BRIGHT_BLACK}:{Style.RESET_ALL} {Foreground_Colour.MAGENTA}%(name)3s{Style.RESET_ALL} "
+            f"{Foreground_Colour.BRIGHT_BLACK}:::{Style.RESET_ALL} %(message)s"
+        )
+
         return super().format(record)
 
 

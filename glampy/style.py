@@ -5,6 +5,7 @@
 class Foreground_Colour:
     """Font foreground colours for use in terminal output."""
 
+    BRIGHT_BLACK = "\033[90m"
     BLACK = "\033[30m"
     RED = "\033[31m"
     GREEN = "\033[32m"
@@ -48,10 +49,10 @@ class Style:
 class Sign:
     """Unicode symbols for use in terminal output."""
 
-    WARNING = "\u26A0"
-    CRASH = "\U0001F4A5"
-    PERSON = "\U0001F464"
-    LOADING = "\U0001F5D8"
+    WARNING = "\u26a0"
+    CRASH = "\U0001f4a5"
+    PERSON = "\U0001f464"
+    LOADING = "\U0001f5d8"
     CHECKMARK = "\u2713"
-    TRIANGLE = "\u25B6"
-    CIRCLE = "\u25EF"
+    TRIANGLE = "\u25b6"
+    CIRCLE = "\u25ef"
